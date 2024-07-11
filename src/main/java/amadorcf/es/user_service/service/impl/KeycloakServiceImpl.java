@@ -1,12 +1,12 @@
 package amadorcf.es.user_service.service.impl;
 
+import amadorcf.es.user_service.config.KeyCloakManager;
 import amadorcf.es.user_service.service.KeycloakService;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
-import org.training.user.service.config.KeyCloakManager;
 
 
 import java.util.List;

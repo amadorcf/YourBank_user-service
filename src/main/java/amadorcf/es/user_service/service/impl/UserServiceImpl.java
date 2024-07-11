@@ -1,13 +1,17 @@
 package amadorcf.es.user_service.service.impl;
 
+import amadorcf.es.user_service.model.Status;
 import amadorcf.es.user_service.model.dto.SaveUser;
 import amadorcf.es.user_service.model.dto.response.Response;
+import amadorcf.es.user_service.model.entity.User;
+import amadorcf.es.user_service.model.entity.UserProfile;
 import amadorcf.es.user_service.repository.UserRepository;
+import amadorcf.es.user_service.service.KeycloakService;
 import amadorcf.es.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.keycloak.representations.idm.CredentialRepresentation;
-//import org.keycloak.representations.idm.UserRepresentation;
+import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +48,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final KeycloakService keycloakService;
-    private final AccountService accountService;
+    // Implementar cuando al crear el microservicio Account Service
+    //private final AccountService accountService;
 
     private UserMapper userMapper = new UserMapper();
 
