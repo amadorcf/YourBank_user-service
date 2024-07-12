@@ -17,7 +17,7 @@ public interface UserService {
      * @param  userDto  the user DTO containing user information
      * @return          the response indicating the success or failure of the user creation
      */
-    Response createUser(SaveUser userDto);
+    Response saveUser(SaveUser userDto);
 
     /**
      * Retrieves a list of all users.
@@ -66,5 +66,5 @@ public interface UserService {
      * @param  accountId  the account ID of the user
      * @return            the UserDto object representing the user with the specified account ID
      */
-    UserDto readUserByAccountId(String accountId);
+    //UserDto readUserByAccountId(String accountId);
 }

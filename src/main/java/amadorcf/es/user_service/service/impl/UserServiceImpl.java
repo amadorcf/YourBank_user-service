@@ -1,39 +1,30 @@
 package amadorcf.es.user_service.service.impl;
 
+import amadorcf.es.user_service.exception.EmptyFields;
+import amadorcf.es.user_service.exception.ResourceConflictException;
+import amadorcf.es.user_service.exception.ResourceNotFound;
 import amadorcf.es.user_service.model.Status;
 import amadorcf.es.user_service.model.dto.SaveUser;
+import amadorcf.es.user_service.model.dto.UpdateUser;
+import amadorcf.es.user_service.model.dto.UpdateUserStatus;
+import amadorcf.es.user_service.model.dto.UserDto;
 import amadorcf.es.user_service.model.dto.response.Response;
 import amadorcf.es.user_service.model.entity.User;
 import amadorcf.es.user_service.model.entity.UserProfile;
+import amadorcf.es.user_service.model.mapper.UserMapper;
 import amadorcf.es.user_service.repository.UserRepository;
 import amadorcf.es.user_service.service.KeycloakService;
 import amadorcf.es.user_service.service.UserService;
+import amadorcf.es.user_service.utils.FieldChecker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
-import org.training.user.service.exception.EmptyFields;
-import org.training.user.service.exception.ResourceConflictException;
-import org.training.user.service.exception.ResourceNotFound;
-import org.training.user.service.external.AccountService;
-import org.training.user.service.model.Status;
-import org.training.user.service.model.dto.CreateUser;
-import org.training.user.service.model.dto.UserDto;
-import org.training.user.service.model.dto.UserUpdate;
-import org.training.user.service.model.dto.UserUpdateStatus;
-import org.training.user.service.model.dto.response.Response;
-import org.training.user.service.model.entity.User;
-import org.training.user.service.model.entity.UserProfile;
-import org.training.user.service.model.external.Account;
-import org.training.user.service.model.mapper.UserMapper;
-import org.training.user.service.repository.UserRepository;
-import org.training.user.service.service.KeycloakService;
-import org.training.user.service.service.UserService;
-import org.training.user.service.utils.FieldChecker;
+
 
 import jakarta.transaction.Transactional;
 import java.util.*;
@@ -48,7 +39,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final KeycloakService keycloakService;
-    // Implementar cuando al crear el microservicio Account Service
+
+        //TODO Implementar cuando al crear el microservicio Account Service
     //private final AccountService accountService;
 
     private UserMapper userMapper = new UserMapper();
@@ -123,8 +115,10 @@ public class UserServiceImpl implements UserService {
 
         List<User> users = userRepository.findAll();
 
-        Map<String, UserRepresentation> userRepresentationMap = keycloakService.readUsers(users.stream().map(user -> user.getAuthId()).collect(Collectors.toList()))
-                .stream().collect(Collectors.toMap(UserRepresentation::getId, Function.identity()));
+        Map<String, UserRepresentation> userRepresentationMap = keycloakService.readUsers(users.stream()
+                        .map(user -> user.getAuthId()).collect(Collectors.toList()))
+                        .stream()
+                        .collect(Collectors.toMap(UserRepresentation::getId, Function.identity()));
 
         return users.stream().map(user -> {
             UserDto userDto = userMapper.convertToDto(user);
@@ -165,7 +159,7 @@ public class UserServiceImpl implements UserService {
      * @throws EmptyFields If the user has empty fields.
      */
     @Override
-    public Response updateUserStatus(Long id, UserUpdateStatus userUpdate) {
+    public Response updateUserStatus(Long id, UpdateUserStatus userUpdate) {
 
         User user = userRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFound("User not found on the server"));
@@ -214,7 +208,7 @@ public class UserServiceImpl implements UserService {
      * @throws ResourceNotFound if the user with the given ID is not found.
      */
     @Override
-    public Response updateUser(Long id, UserUpdate userUpdate) {
+    public Response updateUser(Long id, UpdateUser userUpdate) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("User not found on the server"));
@@ -235,7 +229,7 @@ public class UserServiceImpl implements UserService {
      * @return The UserDto object corresponding to the given accountId.
      * @throws ResourceNotFound If the account or user is not found on the server.
      */
-    @Override
+    /*@Override
     public UserDto readUserByAccountId(String accountId) {
 
         ResponseEntity<Account> response = accountService.readByAccountNumber(accountId);
@@ -246,5 +240,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId)
                 .map(user -> userMapper.convertToDto(user))
                 .orElseThrow(() -> new ResourceNotFound("User not found on the server"));
-    }
+    }*/
 }
