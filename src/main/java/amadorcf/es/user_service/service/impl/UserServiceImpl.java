@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
      * @param userDto The user data transfer object containing user information.
      * @return A response indicating the result of the user creation.
      * @throws ResourceConflictException If the emailId is already registered as a user.
-     * @throws RuntimeException If the user with identification number is not found.
+     * @throws RuntimeException          If the user with identification number is not found.
      */
     @Override
     public Response saveUser(SaveUser userDto) {

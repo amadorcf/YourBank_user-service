@@ -14,8 +14,8 @@ public interface UserService {
     /**
      * Creates a new user.
      *
-     * @param  userDto  the user DTO containing user information
-     * @return          the response indicating the success or failure of the user creation
+     * @param userDto the user DTO containing user information
+     * @return the response indicating the success or failure of the user creation
      */
     Response saveUser(SaveUser userDto);
 
