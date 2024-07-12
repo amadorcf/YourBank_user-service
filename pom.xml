@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>amadorcf.es</groupId>
-	<artifactId>user-service</artifactId>
+	<artifactId>YourBank-user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-service</name>
 	<description>User Service</description>
